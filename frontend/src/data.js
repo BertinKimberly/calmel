@@ -2,9 +2,6 @@ import { SiOpenaigym } from "react-icons/si";
 export const links = [
    { name: "Home", path: "/" },
    { name: "About", path: "/about" },
-
-   { name: "Plans", path: "/plans" },
-
    { name: "Contact", path: "/contact" },
    { name: "Login", path: "/login" },
 ];

@@ -4,11 +4,11 @@ import Home from "./pages/Home";
 
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
-import Plans from "./pages/Plans";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 import UserPage from "./pages/Userpage";
 import About from "./pages/About";
+import Dashboard from "./pages/Dashboard";
 const App = () => {
    return (
       <BrowserRouter>
@@ -26,10 +26,7 @@ const App = () => {
                element={<Contact />}
             />
 
-            <Route
-               path='/plans'
-               element={<Plans />}
-            />
+           
             <Route
                path='/login'
                element={<Login />}
@@ -41,6 +38,10 @@ const App = () => {
             <Route
                path='/userpage'
                element={<UserPage />}
+            />
+            <Route
+               path='/dashboard'
+               element={<Dashboard />}
             />
             <Route
                path='*'

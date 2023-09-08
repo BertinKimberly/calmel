@@ -147,7 +147,10 @@ const Container = styled.div`
 
    /* ============FOOTER======= */
 
-   MEDIA QUERIES(medium screens) */ @media screen and (max-width: 1024px) {
+   /*
+   MEDIA QUERIES(medium screens) */
+
+   @media screen and (max-width: 1024px) {
       /* FOOTER */
 
       .footer__container {

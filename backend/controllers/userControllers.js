@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
-   const { username, email, password } = req.body;
+   const { username, role, email, password } = req.body;
    try {
       const user = await User.findOne({ email });
       if (user)
@@ -11,7 +11,12 @@ export const registerController = async (req, res) => {
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const newUser = new User({ username, email, password: hashedPassword });
+      const newUser = new User({
+         username,
+         role,
+         email,
+         password: hashedPassword,
+      });
       await newUser.save();
 
       res.json({
@@ -55,6 +60,7 @@ export const loginController = async (req, res) => {
       res.json(error.message);
    }
 };
+// currently not available
 export const LogoutController = async (req, res) => {
    try {
       if (!req.params.id) return res.json({ msg: "User id is required " });
@@ -63,4 +69,11 @@ export const LogoutController = async (req, res) => {
    } catch (error) {
       res.json(error.message);
    }
+};
+
+export const DisplayUsers = async (req, res) => {
+   try {
+      const users = await User.find({});
+      res.json({ allUsers: users });
+   } catch (error) {}
 };

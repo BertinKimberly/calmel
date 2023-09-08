@@ -227,61 +227,6 @@ const Container = styled.div`
       color: black;
       font-weight: bold;
    }
-   .sidebar {
-      position: fixed;
-      top: 80px;
-      left: 0;
-      bottom: 0;
-      width: 100px;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-   }
-   .sidebar div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-      width: 60%;
-      margin: 0.5rem;
-      border-radius: 0.2rem;
-      transition: var(--transition);
-   }
-   .sidebar small {
-      display: none;
-   }
-   .sidebar div:hover small {
-      display: block;
-   }
-   .sidebar div:hover {
-      background: var(--color-gray-600);
-   }
-   .detailled-sidebar {
-      position: fixed;
-      top: 80px;
-      left: 0;
-      bottom: 0;
-      width: 200px;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      overflow-y: scroll;
-   }
-   .detailled-sidebar section {
-      border-bottom: 2px solid var(--color-gray-100);
-      margin: 0;
-      padding: 2rem;
-   }
-   .detailled-sidebar section div {
-      margin-top: 0.7rem;
-      padding: 0.6rem;
-      border-radius: 0.2rem;
-      transition: var(--transition);
-   }
-   .detailled-sidebar section div:hover {
-      background: var(--color-gray-600);
-   }
    section div small {
       margin-left: 1rem;
    }
