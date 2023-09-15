@@ -33,7 +33,7 @@ const Userpage = () => {
    return (
       <Container>
          <nav>
-            <div className='container nav__container'>
+            <div className='container header-container'>
                <div className='left-side'>
                   <FaBars onClick={() => setShowMenu((prev) => !prev)} />
                   <div className='logo'>BRT</div>
@@ -163,6 +163,11 @@ const Userpage = () => {
 export default Userpage;
 
 const Container = styled.div`
+   .header-container{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+   }
    .left-side {
       width: 100px;
       margin-right: 1rem;
@@ -179,6 +184,7 @@ const Container = styled.div`
       justify-content: center;
       flex: 1;
       max-width: 600px;
+      
    }
    .searchbar input {
       width: 80%;
@@ -236,8 +242,11 @@ const Container = styled.div`
    ::-webkit-scrollbar {
       display: none;
    }
+
    /* MEDIA QUERIES */
+
    /* ==========MEDIUM SCREENS=========== */
+
    @media screen and (max-width: 1024px) {
       .left-side {
          width: 50px;

@@ -74,6 +74,8 @@ export const LogoutController = async (req, res) => {
 export const DisplayUsers = async (req, res) => {
    try {
       const users = await User.find({});
-      res.json({ allUsers: users });
-   } catch (error) {}
+      res.status(200).json({ users });
+   } catch (error) {
+      res.status(404).json({ message: error.message });
+   }
 };

@@ -15,6 +15,7 @@ import Card from "../UI/Card";
 import { SiChatbot, SiHelpdesk, SiMessenger, SiViadeo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+
 const Dashboard = () => {
    const [users, setUsers] = useState([]);
    return (
@@ -23,7 +24,7 @@ const Dashboard = () => {
             <div className='container dashboard-header'>
                <Link to='/'>Calmel</Link>
                <h4>Calmel's dashboard</h4>
-               <div className='nav-icons'>
+               <div className='head-icons'>
                   <span>
                      <FaComment />
                   </span>
@@ -39,18 +40,24 @@ const Dashboard = () => {
                   <FaHome />
                   <small>Home</small>
                </div>
-               <div>
-                  <FaUsers />
-                  <small>Users</small>
-               </div>
-               <div>
-                  <FaMusic />
-                  <small>Choirs</small>
-               </div>
-               <div>
-                  <FaUserSlash />
-                  <small>Ushers</small>
-               </div>
+               <Link to='/users'>
+                  <div>
+                     <FaUsers />
+                     <small>Users</small>
+                  </div>
+               </Link>
+               <Link to='/choirs'>
+                  <div>
+                     <FaMusic />
+                     <small>Choirs</small>
+                  </div>
+               </Link>
+               <Link to='/ushers'>
+                  <div>
+                     <FaUserSlash />
+                     <small>Ushers</small>
+                  </div>
+               </Link>
             </div>
             <div className='container main-container'>
                <section className='overview-container'>
@@ -79,7 +86,7 @@ const Dashboard = () => {
                      </Card>
                   </div>
                </section>
-               .
+               <div className='recent-users'>Recent Users</div>
             </div>
          </main>
       </Container>
@@ -95,7 +102,7 @@ const Container = styled.div`
       justify-content: space-between;
    }
 
-   .nav-icons {
+   .head-icons {
       display: flex;
       gap: 1rem;
    }
