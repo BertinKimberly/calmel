@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import {
    FaBell,
-   FaBible,
    FaHome,
    FaComment,
-   FaYoutubeSquare,
    FaUsers,
-   FaAppStore,
-   FaVideo,
    FaMusic,
    FaUserSlash,
 } from "react-icons/fa";
 import Card from "../UI/Card";
-import { SiChatbot, SiHelpdesk, SiMessenger, SiViadeo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
+import Users from "../components/Users";
 
 const Dashboard = () => {
-   const [users, setUsers] = useState([]);
    return (
       <Container>
          <nav>
@@ -34,61 +29,63 @@ const Dashboard = () => {
                </div>
             </div>
          </nav>
-         <main>
-            <div className='sidebar'>
+         <div className='sidebar'>
+            <div>
+               <FaHome />
+               <small>Home</small>
+            </div>
+            <Link to='/users'>
                <div>
-                  <FaHome />
-                  <small>Home</small>
+                  <FaUsers />
+                  <small>Users</small>
                </div>
-               <Link to='/users'>
-                  <div>
-                     <FaUsers />
+            </Link>
+            <Link to='/choirs'>
+               <div>
+                  <FaMusic />
+                  <small>Choirs</small>
+               </div>
+            </Link>
+            <Link to='/ushers'>
+               <div>
+                  <FaUserSlash />
+                  <small>Ushers</small>
+               </div>
+            </Link>
+         </div>
+
+         <div className='container main-container'>
+            <div className='overview-container'>
+               <h1>Dashboard</h1>
+               <div className='overview-cards'>
+                  <Card className='overview-card'>
+                     <span>
+                        <FaUsers />
+                     </span>
+                     <p>400</p>
                      <small>Users</small>
-                  </div>
-               </Link>
-               <Link to='/choirs'>
-                  <div>
-                     <FaMusic />
+                  </Card>
+                  <Card className='overview-card'>
+                     <span>
+                        <FaMusic />
+                     </span>
+                     <p>3</p>
                      <small>Choirs</small>
-                  </div>
-               </Link>
-               <Link to='/ushers'>
-                  <div>
-                     <FaUserSlash />
-                     <small>Ushers</small>
-                  </div>
-               </Link>
+                  </Card>
+                  <Card className='overview-card'>
+                     <span>
+                        <FaUsers />
+                     </span>
+                     <p>40</p>
+                     <small>ushers</small>
+                  </Card>
+               </div>
             </div>
-            <div className='container main-container'>
-               <section className='overview-container'>
-                  <h1>Dashboard</h1>
-                  <div className='overview-cards'>
-                     <Card className='overview-card'>
-                        <span>
-                           <FaUsers />
-                        </span>
-                        <p>400</p>
-                        <small>Users</small>
-                     </Card>
-                     <Card className='overview-card'>
-                        <span>
-                           <FaMusic />
-                        </span>
-                        <p>3</p>
-                        <small>Choirs</small>
-                     </Card>
-                     <Card className='overview-card'>
-                        <span>
-                           <FaUsers />
-                        </span>
-                        <p>40</p>
-                        <small>ushers</small>
-                     </Card>
-                  </div>
-               </section>
-               <div className='recent-users'>Recent Users</div>
+            <div className='all-users'>
+               <h4>All Users:</h4>
+               <Users />
             </div>
-         </main>
+         </div>
       </Container>
    );
 };
@@ -101,7 +98,6 @@ const Container = styled.div`
       align-items: center;
       justify-content: space-between;
    }
-
    .head-icons {
       display: flex;
       gap: 1rem;
@@ -115,10 +111,11 @@ const Container = styled.div`
       gap: 2rem;
    }
    .main-container {
-      position: fixed;
-      top: 120px;
-      left: 100px;
+      margin-top: 100px;
+      margin-left: 100px;
+      height: 100%;
       width: 100%;
+      overflow: scroll;
    }
    .overview-cards {
       display: flex;
@@ -127,5 +124,8 @@ const Container = styled.div`
    .overview-card {
       width: 10rem;
       padding: 1rem 0;
+   }
+   h4 {
+      margin-left: 2rem;
    }
 `;

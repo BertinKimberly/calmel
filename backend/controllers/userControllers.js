@@ -74,8 +74,31 @@ export const LogoutController = async (req, res) => {
 export const DisplayUsers = async (req, res) => {
    try {
       const users = await User.find({});
-      res.status(200).json({ users });
+      if (users === "") {
+         res.json({ message: "no users found" });
+      }
+      res.status(200).json(users);
    } catch (error) {
       res.status(404).json({ message: error.message });
+   }
+};
+
+export const updateUser = async (req, res) => {
+   try {
+      const { id } = req.params;
+      const user = await User.findByIdAndUpdate(id, req.body);
+      res.json({ message: "updated successfully", user ,status:true});
+   } catch (error) {
+      res.json({ message: error.message ,status:false});
+   }
+};
+
+export const deleteUser = async (req, res) => {
+   try {
+      const { id } = req.params;
+      const user = await User.findByIdAndDelete(id);
+      res.json({ message: "deleted successfully", user ,status:true});
+   } catch (error) {
+      res.json({ message: error.message ,status:false});
    }
 };
