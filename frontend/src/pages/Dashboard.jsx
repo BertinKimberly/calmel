@@ -1,131 +1,156 @@
-import React from "react";
 import {
-   FaBell,
-   FaHome,
-   FaComment,
-   FaUsers,
-   FaMusic,
-   FaUserSlash,
-} from "react-icons/fa";
-import Card from "../UI/Card";
-import { Link } from "react-router-dom";
-import { styled } from "styled-components";
-import Users from "../components/Users";
+   DollarCircleOutlined,
+   ShoppingOutlined,
+   UserOutlined,
+} from "@ant-design/icons";
+import { Card, Space, Statistic, Table, Typography } from "antd";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { displayUsersRoute } from "../utils/ApiRoutes";
+
+import {
+   Chart as ChartJS,
+   CategoryScale,
+   LinearScale,
+   BarElement,
+   Title,
+   Tooltip,
+   Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(
+   CategoryScale,
+   LinearScale,
+   BarElement,
+   Title,
+   Tooltip,
+   Legend
+);
 
 const Dashboard = () => {
+   const [users, setUsers] = useState([]);
+   const fetchUsers = async () => {
+      const res = await axios.get(displayUsersRoute);
+      setUsers(res.data);
+      console.log(res);
+      console.log(users);
+   };
    return (
-      <Container>
-         <nav>
-            <div className='container dashboard-header'>
-               <Link to='/'>Calmel</Link>
-               <h4>Calmel's dashboard</h4>
-               <div className='head-icons'>
-                  <span>
-                     <FaComment />
-                  </span>
-                  <span>
-                     <FaBell />
-                  </span>
-               </div>
-            </div>
-         </nav>
-         <div className='sidebar'>
-            <div>
-               <FaHome />
-               <small>Home</small>
-            </div>
-            <Link to='/users'>
-               <div>
-                  <FaUsers />
-                  <small>Users</small>
-               </div>
-            </Link>
-            <Link to='/choirs'>
-               <div>
-                  <FaMusic />
-                  <small>Choirs</small>
-               </div>
-            </Link>
-            <Link to='/ushers'>
-               <div>
-                  <FaUserSlash />
-                  <small>Ushers</small>
-               </div>
-            </Link>
-         </div>
-
-         <div className='container main-container'>
-            <div className='overview-container'>
-               <h1>Dashboard</h1>
-               <div className='overview-cards'>
-                  <Card className='overview-card'>
-                     <span>
-                        <FaUsers />
-                     </span>
-                     <p>400</p>
-                     <small>Users</small>
-                  </Card>
-                  <Card className='overview-card'>
-                     <span>
-                        <FaMusic />
-                     </span>
-                     <p>3</p>
-                     <small>Choirs</small>
-                  </Card>
-                  <Card className='overview-card'>
-                     <span>
-                        <FaUsers />
-                     </span>
-                     <p>40</p>
-                     <small>ushers</small>
-                  </Card>
-               </div>
-            </div>
-            <div className='all-users'>
-               <h4>All Users:</h4>
-               <Users />
-            </div>
-         </div>
-      </Container>
+      <Space
+         size={20}
+         direction='vertical'
+      >
+         <Typography.Title level={4}>Dashboard</Typography.Title>
+         <Space direction='horizontal'>
+            <DashboardCard
+               icon={
+                  <UserOutlined
+                     style={{
+                        color: "green",
+                        backgroundColor: "rgba(0,255,0,0.25)",
+                        borderRadius: 20,
+                        fontSize: 24,
+                        padding: 8,
+                     }}
+                  />
+               }
+               title={"Users"}
+               value={users.length}
+            />
+         </Space>
+         <Space>
+            <DashboardChart users={users} />
+         </Space>
+      </Space>
    );
 };
 
-export default Dashboard;
+function DashboardCard({ title, value, icon }) {
+   return (
+      <Card>
+         <Space direction='horizontal'>
+            {icon}
+            <Statistic
+               title={title}
+               value={value}
+            />
+         </Space>
+      </Card>
+   );
+}
 
-const Container = styled.div`
-   .dashboard-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-   }
-   .head-icons {
-      display: flex;
-      gap: 1rem;
-   }
-   .overview-container {
-      width: 90%;
-      margin-top: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-   }
-   .main-container {
-      margin-top: 100px;
-      margin-left: 100px;
-      height: 100%;
-      width: 100%;
-      overflow: scroll;
-   }
-   .overview-cards {
-      display: flex;
-      gap: 2rem;
-   }
-   .overview-card {
-      width: 10rem;
-      padding: 1rem 0;
-   }
-   h4 {
-      margin-left: 2rem;
-   }
-`;
+// return (
+//    <>
+//       <Typography.Text>Recent Orders</Typography.Text>
+//       <Table
+//          columns={[
+//             {
+//                title: "Title",
+//                dataIndex: "title",
+//             },
+//             {
+//                title: "Quantity",
+//                dataIndex: "quantity",
+//             },
+//             {
+//                title: "Price",
+//                dataIndex: "discountedPrice",
+//             },
+//          ]}
+//          loading={loading}
+//          dataSource={dataSource}
+//          pagination={false}
+//       ></Table>
+
+function DashboardChart({users}) {
+   const [usersData, setUsersData] = useState({
+      labels: [],
+      datasets: [],
+   });
+
+   useEffect(() => {
+      const labels = users.map((user) => {
+         return `User-${user._id}`;
+      });
+      const data = users.map((user) => {
+         return user.username;
+      });
+
+      const dataSource = {
+         labels,
+         datasets: [
+            {
+               label: "Users",
+               data: data,
+               backgroundColor: "rgba(255, 0, 0, 1)",
+            },
+         ],
+      };
+
+      setUsersData(dataSource);
+   }, []);
+
+   const options = {
+      responsive: true,
+      plugins: {
+         legend: {
+            position: "bottom",
+         },
+         title: {
+            display: true,
+            text: "Users",
+         },
+      },
+   };
+
+   return (
+      <Card style={{ width: 500, height: 250 }}>
+         <Bar
+            options={options}
+            data={usersData}
+         />
+      </Card>
+   );
+}
+export default Dashboard;
