@@ -66,11 +66,11 @@ const Container = styled.div`
       width: 100%;
       height: 100%;
       overflow: scroll;
-      padding: 1rem;
+      padding: 2rem;
    }
    table {
       border-collapse: collapse;
-      width: 50%;
+      width: 30%;
    }
 
    th,
@@ -78,6 +78,7 @@ const Container = styled.div`
       border: 1px solid var(--color-primary);
       text-align: left;
       padding: 1rem;
+      min-width: 200px;
    }
 
    th {

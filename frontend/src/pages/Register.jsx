@@ -18,6 +18,7 @@ const Register = () => {
    const [values, setValues] = useState({
       username: "",
       email: "",
+      role: "",
       password: "",
    });
 
@@ -25,9 +26,9 @@ const Register = () => {
       setValues({ ...values, [event.target.name]: event.target.value });
    };
    const validateForm = () => {
-      const { username, email, password } = values;
-      if (username === "" || email === "" || password === "") {
-         toast.error("username,email and password are required", toastOptions);
+      const { username, email, role, password } = values;
+      if (username === "" || email === "" || role === "" || password === "") {
+         toast.error("username,email,role and password are required", toastOptions);
          return false;
       }
       if (username < 3) {
@@ -44,13 +45,13 @@ const Register = () => {
    const handleSubmit = async (event) => {
       event.preventDefault();
       if (validateForm()) {
-         const { email, username, password } = values;
+         const { email, username, role, password } = values;
          const { data } = await axios.post(registerRoute, {
             username,
             email,
+            role,
             password,
          });
-         console.log(data);
          if (data.status === false) {
             toast.error(data.message, toastOptions);
          }
@@ -95,6 +96,15 @@ const Register = () => {
                      name='email'
                      onChange={(e) => handleChange(e)}
                      placeholder='Enter your email'
+                  />
+               </div>
+               <div>
+                  <label htmlFor='rolel'>Role</label>
+                  <input
+                     type='text'
+                     name='role'
+                     onChange={(e) => handleChange(e)}
+                     placeholder='Enter your role'
                   />
                </div>
                <div>
