@@ -7,7 +7,8 @@ import { Card, Space, Statistic, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { displayUsersRoute } from "../utils/ApiRoutes";
-
+import DashboardHeader from "../components/DashboardHeader";
+import "../components/Dashboard.css";
 import {
    Chart as ChartJS,
    CategoryScale,
@@ -18,6 +19,8 @@ import {
    Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import AppFooter from "../components/DashboardFooter";
+import DashboardSideMenu from "../components/DashboardSideMenu";
 
 ChartJS.register(
    CategoryScale,
@@ -37,32 +40,39 @@ const Dashboard = () => {
       console.log(users);
    };
    return (
-      <Space
-         size={20}
-         direction='vertical'
-      >
-         <Typography.Title level={4}>Dashboard</Typography.Title>
-         <Space direction='horizontal'>
-            <DashboardCard
-               icon={
-                  <UserOutlined
-                     style={{
-                        color: "green",
-                        backgroundColor: "rgba(0,255,0,0.25)",
-                        borderRadius: 20,
-                        fontSize: 24,
-                        padding: 8,
-                     }}
+      <>
+         <DashboardHeader />
+         <div className='SideMenuAndPageContent'>
+            <DashboardSideMenu />
+            <Space
+               size={20}
+               direction='vertical'
+            >
+               <Typography.Title level={4}>Dashboard</Typography.Title>
+               <Space direction='horizontal'>
+                  <DashboardCard
+                     icon={
+                        <UserOutlined
+                           style={{
+                              color: "green",
+                              backgroundColor: "rgba(0,255,0,0.25)",
+                              borderRadius: 20,
+                              fontSize: 24,
+                              padding: 8,
+                           }}
+                        />
+                     }
+                     title={"Users"}
+                     value={users.length}
                   />
-               }
-               title={"Users"}
-               value={users.length}
-            />
-         </Space>
-         <Space>
-            <DashboardChart users={users} />
-         </Space>
-      </Space>
+               </Space>
+               <Space>
+                  <DashboardChart users={users} />
+               </Space>
+            </Space>
+         </div>
+         <AppFooter />
+      </>
    );
 };
 
@@ -79,57 +89,37 @@ function DashboardCard({ title, value, icon }) {
       </Card>
    );
 }
-
-// return (
-//    <>
-//       <Typography.Text>Recent Orders</Typography.Text>
-//       <Table
-//          columns={[
-//             {
-//                title: "Title",
-//                dataIndex: "title",
-//             },
-//             {
-//                title: "Quantity",
-//                dataIndex: "quantity",
-//             },
-//             {
-//                title: "Price",
-//                dataIndex: "discountedPrice",
-//             },
-//          ]}
-//          loading={loading}
-//          dataSource={dataSource}
-//          pagination={false}
-//       ></Table>
-
-function DashboardChart({users}) {
+function DashboardChart({ users }) {
    const [usersData, setUsersData] = useState({
       labels: [],
       datasets: [],
    });
 
    useEffect(() => {
-      const labels = users.map((user) => {
-         return `User-${user._id}`;
+      const registrationTimes = users.map((user) => {
+         return user.createdAt;
       });
-      const data = users.map((user) => {
-         return user.username;
+
+      const labels = registrationTimes.map((timestamp) => {
+         const date = new Date(timestamp);
+         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
       });
+
+      const data = users.map(() => 1); // Count of users at each registration time
 
       const dataSource = {
          labels,
          datasets: [
             {
                label: "Users",
-               data: data,
+               data,
                backgroundColor: "rgba(255, 0, 0, 1)",
             },
          ],
       };
 
       setUsersData(dataSource);
-   }, []);
+   }, [users]);
 
    const options = {
       responsive: true,
@@ -153,4 +143,5 @@ function DashboardChart({users}) {
       </Card>
    );
 }
+
 export default Dashboard;

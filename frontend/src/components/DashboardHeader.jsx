@@ -1,21 +1,21 @@
 import { BellFilled, MailOutlined } from "@ant-design/icons";
 import { Badge, Drawer, List, Space, Typography } from "antd";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { getComments, getOrders } from "../../API";
+import { displayUsersRoute } from "../utils/ApiRoutes";
 
-function AppHeader() {
+function DashboardHeader() {
    const [comments, setComments] = useState([]);
-   const [orders, setOrders] = useState([]);
+   const [users, setusers] = useState([]);
    const [commentsOpen, setCommentsOpen] = useState(false);
    const [notificationsOpen, setNotificationsOpen] = useState(false);
 
    useEffect(() => {
-      getComments().then((res) => {
-         setComments(res.comments);
-      });
-      getOrders().then((res) => {
-         setOrders(res.products);
-      });
+      const fetchUsers = async () => {
+         await axios.get(displayUsersRoute).then((res) => setusers(res.data));
+         console.log("yooooooo", users);
+      };
+      fetchUsers();
    }, []);
 
    return (
@@ -26,7 +26,7 @@ function AppHeader() {
          >
             BRT
          </Typography.Link>
-         <Typography.Title>Bertin's Dashboard</Typography.Title>
+         <Typography.Title>Calmel's dashboard</Typography.Title>
          <Space>
             <Badge
                count={comments.length}
@@ -39,7 +39,7 @@ function AppHeader() {
                   }}
                />
             </Badge>
-            <Badge count={orders.length}>
+            <Badge count={users.length}>
                <BellFilled
                   style={{ fontSize: 24 }}
                   onClick={() => {
@@ -57,7 +57,7 @@ function AppHeader() {
             maskClosable
          >
             <List
-               dataSource={comments}
+               dataSource={users}
                renderItem={(item) => {
                   return <List.Item>{item.body}</List.Item>;
                }}
@@ -72,12 +72,12 @@ function AppHeader() {
             maskClosable
          >
             <List
-               dataSource={orders}
+               dataSource={users}
                renderItem={(item) => {
                   return (
                      <List.Item>
                         <Typography.Text strong>{item.title}</Typography.Text>{" "}
-                        has been ordered!
+                        has been registered!
                      </List.Item>
                   );
                }}
@@ -86,4 +86,4 @@ function AppHeader() {
       </div>
    );
 }
-export default AppHeader;
+export default DashboardHeader;

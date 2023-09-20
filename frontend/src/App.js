@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import UserPage from "./pages/Userpage";
 import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
+import UsersContent from "./pages/UsersContent";
 const App = () => {
    return (
       <BrowserRouter>
@@ -26,7 +27,6 @@ const App = () => {
                element={<Contact />}
             />
 
-           
             <Route
                path='/login'
                element={<Login />}
@@ -42,6 +42,10 @@ const App = () => {
             <Route
                path='/dashboard'
                element={<Dashboard />}
+            />
+            <Route
+               path='/dashboard/users'
+               element={<UsersContent />}
             />
             <Route
                path='*'
