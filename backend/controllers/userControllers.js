@@ -1,31 +1,39 @@
 import User from "../models/userModel.js";
+import Role from "../models/roleModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
-   const { username, role, email, password } = req.body;
+   const { username, roleName, email, password } = req.body; // Change 'role' to 'roleName'
+
    try {
       const user = await User.findOne({ email });
       if (user)
-         return res.json({ message: "email was already used", status: false });
+         return res.json({
+            message: "Email has already been used.",
+            status: false,
+         });
 
+      const role = await Role.findOne({ name: roleName });
+      if (!role) return res.json({ message: "Role not found.", status: false });
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = new User({
          username,
-         role,
+         roleId: role._id,
+         roleName,
          email,
          password: hashedPassword,
       });
       await newUser.save();
 
       res.json({
-         message: "user registered successfully",
+         message: "User registered successfully.",
          newUser,
          status: true,
       });
    } catch (error) {
-      res.json(error.message);
+      res.json({ message: error.message, status: false });
    }
 };
 
@@ -87,9 +95,9 @@ export const updateUser = async (req, res) => {
    try {
       const { id } = req.params;
       const user = await User.findByIdAndUpdate(id, req.body);
-      res.json({ message: "updated successfully", user ,status:true});
+      res.json({ message: "updated successfully", user, status: true });
    } catch (error) {
-      res.json({ message: error.message ,status:false});
+      res.json({ message: error.message, status: false });
    }
 };
 
@@ -97,8 +105,8 @@ export const deleteUser = async (req, res) => {
    try {
       const { id } = req.params;
       const user = await User.findByIdAndDelete(id);
-      res.json({ message: "deleted successfully", user ,status:true});
+      res.json({ message: "deleted successfully", user, status: true });
    } catch (error) {
-      res.json({ message: error.message ,status:false});
+      res.json({ message: error.message, status: false });
    }
 };

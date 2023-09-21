@@ -163,10 +163,10 @@ const Userpage = () => {
 export default Userpage;
 
 const Container = styled.div`
-   .header-container{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+   .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
    }
    .left-side {
       width: 100px;
@@ -184,13 +184,12 @@ const Container = styled.div`
       justify-content: center;
       flex: 1;
       max-width: 600px;
-      
    }
    .searchbar input {
       width: 80%;
       background: transparent;
       padding: 0.7rem;
-      border: 1px solid var(--color-secondary);
+      border: 1px solid var(--white);
       border-radius: 2rem 0 0 2rem;
       color: var(--color-gray-100);
    }
@@ -198,7 +197,7 @@ const Container = styled.div`
       cursor: pointer;
       background: transparent;
       padding: 0.7rem;
-      border: 1px solid var(--color-secondary);
+      border: 1px solid var(--white);
       border-radius: 0 2rem 2rem 0;
       display: grid;
       place-items: center;

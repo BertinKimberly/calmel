@@ -12,7 +12,7 @@ const Footer = () => {
                      to='/'
                      className='logo'
                   >
-                     BRT
+                     Calmel
                   </Link>
                   <p>
                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -75,7 +75,7 @@ const Footer = () => {
             </div>
             <div className='footer__copyright'>
                {" "}
-               <small>2023 BRT &copy; All rights reserved</small>
+               <small>2023 Calmel &copy; All rights reserved</small>
             </div>
          </footer>
       </Container>

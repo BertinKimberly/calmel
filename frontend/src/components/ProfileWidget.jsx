@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdClose, MdLogout } from "react-icons/md";
 import { styled } from "styled-components";
 import { logoutRoute } from "../utils/ApiRoutes";
 import axios from "axios";
+import { MdNightlight, MdOutlineClose, MdSunny } from "react-icons/md";
 const ProfileWidget = ({ currentUser, showProfile }) => {
+   const [isDarkMode, setIsDarkMode] = useState(false);
+
+   const toggleDarkMode = () => {
+      document.body.classList.toggle("dark-mode");
+      setIsDarkMode((prev) => !prev);
+   };
    const logout = async () => {
       const response = await axios.get(logoutRoute);
-      console.log(response);
    };
    return (
       <Container>
@@ -20,6 +26,12 @@ const ProfileWidget = ({ currentUser, showProfile }) => {
          <div className='logout__btn'>
             <MdLogout />
          </div>
+         <button
+            className='toggle-darkmode-btn'
+            onClick={toggleDarkMode}
+         >
+            {isDarkMode ? <MdSunny /> : <MdNightlight />}
+         </button>
       </Container>
    );
 };
@@ -46,7 +58,7 @@ const Container = styled.div`
       right: 1rem;
       cursor: pointer;
       background-color: var(--color-gray-400);
-      border-radius:50%;
+      border-radius: 50%;
       transition: var(--transition);
    }
 

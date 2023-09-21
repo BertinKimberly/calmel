@@ -8,6 +8,7 @@ export const logoutRoute = `${host}/auth/logout/:id`;
 export const displayUsersRoute = `${host}/auth/users`;
 export const updateRoute = `${host}/auth/update`;
 export const deleteRoute = `${host}/auth/delete`;
+export const getRolesRoute = `${host}/api/roles`;
 
 export const fetchUsers = () => {
    return axios

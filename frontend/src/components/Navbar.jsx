@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { links } from "../data";
 import { Link, NavLink } from "react-router-dom";
 import { GoThreeBars } from "react-icons/go";
-import { MdOutlineClose } from "react-icons/md";
+import { MdNightlight, MdOutlineClose, MdSunny } from "react-icons/md";
 import { styled } from "styled-components";
 const Navbar = () => {
    const [isNavShowing, setIsNavShowing] = useState(false);
+  
    return (
       <Container>
          <nav>
@@ -15,7 +16,7 @@ const Navbar = () => {
                   className='logo'
                   onClick={() => setIsNavShowing(false)}
                >
-                  BRT
+                  Calmel
                </Link>
                <ul
                   className={`nav__links ${

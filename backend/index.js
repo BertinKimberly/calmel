@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import { connection } from "./database/mongo.js";
 import bodyParser from "body-parser";
 import { userRouter } from "./routes/userRoutes.js";
+import { roleRouter } from "./routes/roleRoutes.js";
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5001;
@@ -15,7 +17,7 @@ app.use(bodyParser.json());
 
 //routes
 app.use("/auth", userRouter);
-app.use("/api", userRouter);
+app.use("/api", roleRouter);
 
 connection;
 app.listen(port, () => console.log(`server is running on port ${port}`));
