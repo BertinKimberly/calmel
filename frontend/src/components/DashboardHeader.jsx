@@ -13,7 +13,6 @@ function DashboardHeader() {
    useEffect(() => {
       const fetchUsers = async () => {
          await axios.get(displayUsersRoute).then((res) => setusers(res.data));
-         console.log("yooooooo", users);
       };
       fetchUsers();
    }, []);

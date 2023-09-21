@@ -1,14 +1,12 @@
+import React, { useEffect, useState } from "react";
+import DashboardHeader from "../components/DashboardHeader";
+import "../components/dashboard.css";
 import {
    DollarCircleOutlined,
    ShoppingOutlined,
    UserOutlined,
 } from "@ant-design/icons";
 import { Card, Space, Statistic, Table, Typography } from "antd";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { displayUsersRoute } from "../utils/ApiRoutes";
-import DashboardHeader from "../components/DashboardHeader";
-import "../components/Dashboard.css";
 import {
    Chart as ChartJS,
    CategoryScale,
@@ -21,6 +19,8 @@ import {
 import { Bar } from "react-chartjs-2";
 import AppFooter from "../components/DashboardFooter";
 import DashboardSideMenu from "../components/DashboardSideMenu";
+import { fetchUsers } from "../utils/ApiRoutes";
+import { MdWork } from "react-icons/md";
 
 ChartJS.register(
    CategoryScale,
@@ -33,12 +33,25 @@ ChartJS.register(
 
 const Dashboard = () => {
    const [users, setUsers] = useState([]);
-   const fetchUsers = async () => {
-      const res = await axios.get(displayUsersRoute);
-      setUsers(res.data);
-      console.log(res);
-      console.log(users);
-   };
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState(null);
+
+
+   useEffect(() => {
+      const fetchData = async () => {
+         try {
+            const response = await fetchUsers();
+            setUsers(response.data);
+            setLoading(false);
+         } catch (error) {
+            setError(error);
+            setLoading(false);
+         }
+      };
+
+      fetchData();
+   }, []);
+
    return (
       <>
          <DashboardHeader />
@@ -49,26 +62,64 @@ const Dashboard = () => {
                direction='vertical'
             >
                <Typography.Title level={4}>Dashboard</Typography.Title>
-               <Space direction='horizontal'>
-                  <DashboardCard
-                     icon={
-                        <UserOutlined
-                           style={{
-                              color: "green",
-                              backgroundColor: "rgba(0,255,0,0.25)",
-                              borderRadius: 20,
-                              fontSize: 24,
-                              padding: 8,
-                           }}
+               {loading ? (
+                  <p>Loading...</p>
+               ) : error ? (
+                  <p>Error: {error.message}</p>
+               ) : (
+                  <>
+                     <Space direction='horizontal'>
+                        <DashboardCard
+                           icon={
+                              <UserOutlined
+                                 style={{
+                                    color: "green",
+                                    backgroundColor: "rgba(0,255,0,0.25)",
+                                    borderRadius: 20,
+                                    fontSize: 24,
+                                    padding: 8,
+                                 }}
+                              />
+                           }
+                           title={"Users"}
+                           value={users.length}
                         />
-                     }
-                     title={"Users"}
-                     value={users.length}
-                  />
-               </Space>
-               <Space>
-                  <DashboardChart users={users} />
-               </Space>
+                        <DashboardCard
+                           icon={
+                              <MdWork
+                                 style={{
+                                    color: "green",
+                                    backgroundColor: "rgba(0,255,0,0.25)",
+                                    borderRadius: 20,
+                                    fontSize: 24,
+                                    padding: 8,
+                                 }}
+                              />
+                           }
+                           title={"Roles"}
+                           value={users.length}
+                        />
+                        <DashboardCard
+                           icon={
+                              <MdWork
+                                 style={{
+                                    color: "green",
+                                    backgroundColor: "rgba(0,255,0,0.25)",
+                                    borderRadius: 20,
+                                    fontSize: 24,
+                                    padding: 8,
+                                 }}
+                              />
+                           }
+                           title={"Roles"}
+                           value={users.length}
+                        />
+                     </Space>
+                     <Space>
+                        <DashboardChart users={users} />
+                     </Space>
+                  </>
+               )}
             </Space>
          </div>
          <AppFooter />
