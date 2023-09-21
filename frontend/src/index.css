@@ -17,6 +17,7 @@
    --gray-hue: 240;
    --color-primary: hsl(var(--primary-hue), 0%, 0%);
    --color-primary-variant: hsl(var(--primary-hue), 100%, 65%);
+   --white: #fff;
    --color-secondary: #85adfe;
    --color-gray-100: hsl(var(--gray-hue), 47%, 94%);
    --color-gray-200: hsl(var(--gray-hue), 26%, 75%);
@@ -34,12 +35,16 @@
 /* GENERAL STYLES */
 body {
    font-family: sans-serif;
-   color: var(--color-gray-200);
+   color: var(--color-primary);
    line-height: 1.7;
    overflow-x: hidden;
-   background: var(--color-gray-600);
+   background: #fff;
 }
-
+/* dark mode implementation */
+.dark-mode {
+   background: var(--color-primary);
+   color: var(--white);
+}
 .container {
    width: var(--container-width-lg);
    max-width: 1920px;
@@ -61,7 +66,7 @@ h2 {
 }
 
 a {
-   color: var(--color-gray-100);
+   color: var(--white);
 }
 
 img {
@@ -125,7 +130,7 @@ section {
 }
 
 .card {
-   background: var(--color-gray-500);
+   background: var(--color-secondary);
    border: 2px solid transparent;
    text-align: center;
    padding: 3rem 2rem;
@@ -134,12 +139,13 @@ section {
 }
 .card:hover {
    background: transparent;
-   border-color: var(--color-gray-400);
+   border-color: var(--color-primary);
    cursor: default;
 }
 .card span {
    width: 3rem;
    height: 3rem;
+   color: var(--white);
    background: var(--color-primary);
    font-size: 1.5rem;
    padding: 0.8rem;

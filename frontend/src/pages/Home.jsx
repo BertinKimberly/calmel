@@ -62,23 +62,6 @@ const Container = styled.div`
       position: relative;
    }
 
-   .main__header-circle {
-      width: 25rem;
-      height: 25rem;
-      background: linear-gradient(75deg, var(--color-secondary), transparent);
-      border-radius: 50%;
-      position: absolute;
-      transition: var(--transition);
-   }
-
-   .main__header-image {
-      position: relative;
-   }
-
-   .main__header-right:hover .main__header-circle {
-      filter: blur(15px);
-   }
-
    /* ============PROGRAMS======= */
    .progams {
       margin-top: 4rem;
@@ -143,7 +126,7 @@ const Container = styled.div`
       align-items: flex-start;
    }
    .faq {
-      background: var(--color-gray-500);
+      background: var(--color-secondary);
       padding: 2rem;
       border-radius: 1rem;
       cursor: pointer;
