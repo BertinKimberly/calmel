@@ -23,9 +23,9 @@ function DashboardHeader() {
             href='/'
             style={{ fontSize: "30px" }}
          >
-            BRT
+            Calmel
          </Typography.Link>
-         <Typography.Title>Calmel's dashboard</Typography.Title>
+         <Typography.Title className="title">Calmel's dashboard</Typography.Title>
          <Space>
             <Badge
                count={comments.length}

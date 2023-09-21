@@ -15,8 +15,7 @@ app.use(bodyParser.json());
 
 //routes
 app.use("/auth", userRouter);
-
-
+app.use("/api", userRouter);
 
 connection;
 app.listen(port, () => console.log(`server is running on port ${port}`));
