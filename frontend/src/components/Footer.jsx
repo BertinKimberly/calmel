@@ -86,7 +86,7 @@ export default Footer;
 
 const Container = styled.div`
    footer {
-      background: var(--color-primary);
+      background: var(--color-secondary);
       margin-top: 7rem;
       padding-top: 7rem;
       font-size: 0.9rem;

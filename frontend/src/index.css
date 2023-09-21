@@ -68,6 +68,9 @@ h2 {
 a {
    color: var(--white);
 }
+a:hover{
+   color: var(--color-primary) !important;
+}
 
 img {
    display: block;
@@ -78,7 +81,7 @@ img {
 nav {
    height: 5rem;
    width: 100vw;
-   background: var(--color-primary);
+   background: var(--color-secondary);
    display: grid;
    place-items: center;
    position: fixed;

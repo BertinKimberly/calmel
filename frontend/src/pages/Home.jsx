@@ -10,7 +10,7 @@ import { styled } from "styled-components";
 const Home = () => {
    return (
       <Container>
-         <Navbar />
+         <Navbar/>
          <MainHeader />
          <Programs />
          <Values />

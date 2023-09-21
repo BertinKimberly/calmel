@@ -160,7 +160,6 @@ const Container = styled.div`
          }
       }
       .nav__links li a {
-         background-color: var(--color-primary);
          height: 100%;
          width: 100%;
          display: flex;
