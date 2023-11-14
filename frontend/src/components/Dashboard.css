@@ -11,7 +11,6 @@
    display: flex;
    justify-content: space-evenly;
    align-items: center;
-   background: green;
    border-top: 1px solid rgba(0, 0, 0, 0.15);
    position: fixed;
    bottom: 0;
@@ -30,9 +29,63 @@
 .SideMenu {
    height: 100%;
 }
-.SideMenuVertical {
-   height: 100%;
-}
+
 .PageContent {
    padding-left: 12px;
+}
+
+/* MEDIA QUERIES( medium screens) */
+
+@media screen and (max-width: 1024px) {
+   .SideMenuAndPageContent {
+      flex-direction: column;
+      padding-left: 2rem;
+   }
+   .SideMenu {
+      width: 90%;
+   }
+
+   .SideMenu ul {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: scroll;
+   }
+   .SideMenu ul li {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center;
+      justify-content: center;
+      width: 100% !important;
+      height: 5rem !important;
+   }
+   .title {
+      font-size: 1rem !important;
+   }
+}
+
+/* MEDIA QUERIESsmall screens) */
+
+@media screen and (max-width: 600px) {
+   .SideMenu {
+      width: 100%;
+   }
+
+   .SideMenu ul {
+      display: flex;
+      overflow-x: auto;
+      width: 90%;
+      padding: 0;
+      margin: 0;
+   }
+
+   .SideMenu ul li {
+      flex: 0 0 30%;
+      white-space: nowrap;
+      list-style: none;
+      padding: 10px;
+   }
+
+   .title {
+      display: none !important;
+   }
 }
