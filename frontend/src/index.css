@@ -25,9 +25,11 @@
    --color-gray-400: hsl(var(--gray-hue), 16%, 41%);
    --color-gray-500: hsl(var(--gray-hue), 4%, 25%);
    --color-gray-600: hsl(var(--gray-hue), 5%, 10%);
+   --color-bg: #1f1f38;
+   --color-bg-variant: #2c2c6c;
 
-   --container-width-lg: 95%;
-   --container-width-md: 90%;
+   --container-width-lg: 90%;
+   --container-width-md: 80%;
 
    --transition: all 500ms ease;
 }
@@ -38,7 +40,7 @@ body {
    color: var(--color-primary);
    line-height: 1.7;
    overflow-x: hidden;
-   background: #fff;
+   background:var(--color-bg) url("./images/bg_texture.png");
 }
 /* dark mode implementation */
 .dark-mode {
